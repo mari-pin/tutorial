@@ -12,7 +12,12 @@ import java.util.List;
  *
  */
 public interface AuthorService {
-
+    /**
+     * Recupera un {@link Author} a través de su ID
+     *
+     * @param id PK de la entidad
+     * @return {@link Author}
+     */
     Author get(Long id);
 
     /**
