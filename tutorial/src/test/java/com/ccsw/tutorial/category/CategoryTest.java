@@ -8,6 +8,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CategoryTest {
+    public static final String CATEGORY_NAME = "CAT1";
+    public static final Long EXISTS_CATEGORY_ID = 1L;
 
     @Mock
     private CategoryRepository categoryRepository;
@@ -40,8 +46,6 @@ public class CategoryTest {
         assertEquals(1, categories.size());
     }
 
-    public static final String CATEGORY_NAME = "CAT1";
-
     @Test
     public void saveNotExistsCategoryIdShouldInsert() {
 
@@ -56,8 +60,6 @@ public class CategoryTest {
 
         assertEquals(CATEGORY_NAME, category.getValue().getName());
     }
-
-    public static final Long EXISTS_CATEGORY_ID = 1L;
 
     @Test
     public void saveExistsCategoryIdShouldUpdate() {
