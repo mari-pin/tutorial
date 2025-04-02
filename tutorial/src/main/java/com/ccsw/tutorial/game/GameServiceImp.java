@@ -29,6 +29,16 @@ public class GameServiceImp implements GameService {
     CategoryService categoryService;
 
     /**
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Game get(Long id) {
+        return this.gameRepository.findById(id).orElse(null);
+    }
+
+    /**
      * {@inheritDoc}
      */
 
@@ -54,7 +64,7 @@ public class GameServiceImp implements GameService {
         if (id == null) {
             game = new Game();
         } else {
-            game = this.gameRepository.findById(id).orElse(null);
+            game = this.get(id);
         }
 
         BeanUtils.copyProperties(dto, game, "id", "author", "category");
