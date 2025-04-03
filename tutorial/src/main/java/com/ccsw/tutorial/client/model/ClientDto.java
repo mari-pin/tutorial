@@ -6,7 +6,7 @@ public class ClientDto {
     private String name;
 
     public Long getId() {
-        return this.getId();
+        return this.id;
     }
 
     public void setId(Long id) {
@@ -15,7 +15,7 @@ public class ClientDto {
     }
 
     public String getName() {
-        return this.getName();
+        return this.name;
     }
 
     public void setName(String name) {
