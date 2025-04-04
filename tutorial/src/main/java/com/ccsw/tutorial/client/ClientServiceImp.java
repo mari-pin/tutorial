@@ -30,16 +30,32 @@ public class ClientServiceImp implements ClientService {
      * @param dto datos de la entidad
      */
     @Override
-    public void save(Long id, ClientDto dto) {
+    public void save(Long id, ClientDto dto) throws Exception {
         Client client;
+        boolean exist;
+
         if (id == null) {
+            exist = this.clientRepository.existsByName(dto.getName());
+            if (exist) {
+                //lanza la excepcion si el cliente exixte
+                throw new Exception("el nombre ya existe");
+            }
+            //si no existe lo crea y lo guarda
             client = new Client();
+            client.setName(dto.getName());
+            this.clientRepository.save(client);
 
         } else {
             client = this.clientRepository.findById(id).orElse(null);
+            if (client != null) {
+                client.setName(dto.getName());
+                this.clientRepository.save(client);
+            } else {
+                throw new Exception("el cliente ni se ha encontrado");
+            }
+
         }
-        client.setName(dto.getName());
-        this.clientRepository.save(client);
+
     }
 
     /**
@@ -52,5 +68,9 @@ public class ClientServiceImp implements ClientService {
             throw new Exception("Not Exist");
         }
         this.clientRepository.deleteById(id);
+    }
+
+    public Client get(Long Id) {
+        return this.clientRepository.findById(Id).orElse(null);
     }
 }
