@@ -35,6 +35,8 @@ public class ClientServiceImp implements ClientService {
         boolean exist;
 
         if (id == null) {
+
+            //por nombre
             exist = this.clientRepository.existsByName(dto.getName());
             if (exist) {
                 //lanza la excepcion si el cliente exixte
@@ -46,6 +48,7 @@ public class ClientServiceImp implements ClientService {
             this.clientRepository.save(client);
 
         } else {
+            //por id
             client = this.clientRepository.findById(id).orElse(null);
             if (client != null) {
                 client.setName(dto.getName());
