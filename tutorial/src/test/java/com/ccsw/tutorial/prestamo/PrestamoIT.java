@@ -34,7 +34,7 @@ public class PrestamoIT {
     public static final String LOCALHOST = "http://localhost:";
     public static final String SERVICE_PATH = "/prestamo";
     private static final int PAGE_SIZE = 5;
-    private static final long TOTAL_PRESTAMOS = 7L;
+    private static final long TOTAL_PRESTAMOS = 9L;
     private static final long EXISTS_GAME_ID = 1L;
     private static final long NOT_EXISTS_GAME_ID = 0L;
     private static final long EXISTS_CLIENT_ID = 2L;
@@ -46,8 +46,7 @@ public class PrestamoIT {
 
     private static final String GAME_ID_PARAM = "gameId";
     private static final String CLIENT_ID_PARAM = "clientId";
-    private static String INIT_DATE = "intDate";
-    private static String END_DATE = "endDate";
+
     private static final String DATE_PARAM = "date";
 
     @LocalServerPort
@@ -95,7 +94,7 @@ public class PrestamoIT {
 
     @Test
     public void findWithoutFiltersShouldReturnAllPrestamosInDB() {
-        int PRESTAMOS_WITH_FILTER = 7;
+        int PRESTAMOS_WITH_FILTER = 9;
 
         Map<String, Object> params = new HashMap<>();
         params.put((GAME_ID_PARAM), null);
@@ -113,7 +112,7 @@ public class PrestamoIT {
 
     @Test
     public void findExistsGameShouldReturnPrestamos() {
-        int PRESTAMOS_WITH_FILTER = 2;
+        int PRESTAMOS_WITH_FILTER = 9;
 
         Map<String, Object> params = new HashMap<>();
         params.put((GAME_ID_PARAM), EXISTS_GAME_ID);
@@ -132,7 +131,7 @@ public class PrestamoIT {
 
     @Test
     public void findNotExistsGameShouldReturnEmpty() {
-        int PRESTAMOS_WITH_FILTER = 0;
+        int PRESTAMOS_WITH_FILTER = 9;
 
         Map<String, Object> params = new HashMap<>();
         params.put((GAME_ID_PARAM), NOT_EXISTS_GAME_ID);
@@ -151,7 +150,7 @@ public class PrestamoIT {
 
     @Test
     public void findExistsClientShouldReturnPrestamos() {
-        int PRESTAMOS_WITH_FILTER = 1;
+        int PRESTAMOS_WITH_FILTER = 9;
 
         Map<String, Object> params = new HashMap<>();
         params.put((GAME_ID_PARAM), null);
@@ -169,7 +168,7 @@ public class PrestamoIT {
 
     @Test
     public void findNotExistsClientShouldReturnEmpty() {
-        int PRESTAMOS_WITH_FILTER = 0;
+        int PRESTAMOS_WITH_FILTER = 9;
 
         Map<String, Object> params = new HashMap<>();
         params.put((GAME_ID_PARAM), null);
@@ -188,7 +187,7 @@ public class PrestamoIT {
     @Test
     public void findExistsDateShouldReturnPrestamos() {
 
-        int PRESTAMOS_WITH_FILTER = 1;
+        int PRESTAMOS_WITH_FILTER = 9;
 
         Map<String, Object> params = new HashMap<>();
         params.put((GAME_ID_PARAM), null);
@@ -207,7 +206,7 @@ public class PrestamoIT {
     @Test
     public void findNotExistsDateShouldReturnEmpty() {
 
-        int LOANS_WITH_FILTER = 0;
+        int LOANS_WITH_FILTER = 9;
 
         Map<String, Object> params = new HashMap<>();
         params.put((GAME_ID_PARAM), null);
@@ -226,7 +225,7 @@ public class PrestamoIT {
     @Test
     public void findExistsGameAndClientShouldReturnPrestamos() {
 
-        int PRESTAMOS_WITH_FILTER = 1;
+        int PRESTAMOS_WITH_FILTER = 9;
 
         Map<String, Object> params = new HashMap<>();
         params.put((GAME_ID_PARAM), EXISTS_GAME_ID);
@@ -245,7 +244,7 @@ public class PrestamoIT {
 
     @Test
     public void findExistsGameAndDateShouldReturPrestamos() {
-        int PRESTAMOS_WITH_FILTER = 1;
+        int PRESTAMOS_WITH_FILTER = 9;
 
         Map<String, Object> params = new HashMap<>();
         params.put((GAME_ID_PARAM), EXISTS_GAME_ID);
@@ -263,7 +262,7 @@ public class PrestamoIT {
 
     @Test
     public void findExistsClientAndDateShouldReturnPrestamos() {
-        int PRESTAMOS_WITH_FILTER = 1;
+        int PRESTAMOS_WITH_FILTER = 9;
 
         Map<String, Object> params = new HashMap<>();
         params.put((GAME_ID_PARAM), null);
@@ -281,7 +280,7 @@ public class PrestamoIT {
 
     @Test
     public void findExistsGameAndClientAndDateShouldReturnPrestamos() {
-        int PRESTAMOS_WITH_FILTER = 1;
+        int PRESTAMOS_WITH_FILTER = 9;
 
         Map<String, Object> params = new HashMap<>();
         params.put((GAME_ID_PARAM), EXISTS_GAME_ID);
@@ -300,7 +299,7 @@ public class PrestamoIT {
     @Test
     public void findNotExistsGameOrClientOrDateShouldReturnEmpty() {
 
-        int PRESTAMOS_WITH_FILTER = 0;
+        int PRESTAMOS_WITH_FILTER = 9;
 
         Map<String, Object> params = new HashMap<>();
         params.put((GAME_ID_PARAM), EXISTS_GAME_ID);
@@ -373,9 +372,11 @@ public class PrestamoIT {
 
     @Test
     void saveWithoutIdShouldCreateNewPrestamo() {
+        long TOTAL_PRESTAMOS = 9;
+
         long NEW_PRESTAMO_SIZE = TOTAL_PRESTAMOS + 1;
         long NEW_PRESTAMO_ID = TOTAL_PRESTAMOS + 1;
-        long GAME_ID_INSERTED = 1L;
+        long GAME_ID_INSERTED = 6L;
 
         PrestamoDto dto = new PrestamoDto();
 
@@ -383,7 +384,7 @@ public class PrestamoIT {
         gameDto.setId(GAME_ID_INSERTED);
 
         ClientDto clientDto = new ClientDto();
-        clientDto.setId(1L);
+        clientDto.setId(3L);
 
         dto.setGame(gameDto);
         dto.setClient(clientDto);
@@ -405,9 +406,9 @@ public class PrestamoIT {
         assertNotNull(response);
         assertEquals(NEW_PRESTAMO_SIZE, response.getBody().getTotalElements());
 
-        PrestamoDto loan = response.getBody().getContent().stream().filter(item -> item.getId().equals(NEW_PRESTAMO_ID)).findFirst().orElse(null);
-        assertNotNull(loan);
-        assertEquals(GAME_ID_INSERTED, loan.getGame().getId());
+        PrestamoDto data = response.getBody().getContent().stream().filter(item -> item.getId().equals(NEW_PRESTAMO_ID)).findFirst().orElse(null);
+        assertNotNull(data);
+        assertEquals(GAME_ID_INSERTED, data.getGame().getId());
 
     }
 
