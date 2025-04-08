@@ -10,6 +10,23 @@ import java.util.List;
 
 public interface PrestamoService {
     /**
+     * Recupera los juegos filtrando opcionalmente por título y/o categoría
+     *
+     * @param idClient PK del cliente
+     * @param idGame PK del juego
+     * @return {@link List} de {@link Prestamo}
+     */
+    List<Prestamo> find(Long idClient, Long idGame, LocalDate initDate);
+
+    /**
+     * Método para recuperar un listado paginado de {@link Prestamo}
+     *
+     * @param dto dto de búsqueda
+     * @return {@link Page} de {@link Prestamo}
+     */
+    Page<Prestamo> findPage(PrestamoSearchDto dto);
+
+    /**
      * Recupera la lista de prestamos
      * @return {@link List} de {@link Prestamo}
      */
@@ -29,6 +46,8 @@ public interface PrestamoService {
      * @param dto dto de búsqueda
      * @return {@link Page} de {@link Prestamo}
      */
+    //  Page<Prestamo> findPage(Long gameId, Long clientId, LocalDate date, PrestamoSearchDto dto);
+
     Page<Prestamo> findPage(Long gameId, Long clientId, LocalDate date, PrestamoSearchDto dto);
 
     /**
@@ -38,21 +57,4 @@ public interface PrestamoService {
      */
     void delete(Long id) throws Exception;
 
-    /**
-     *
-     * @param dto
-     * @return
-     */
-    boolean areGamesOverlapping(PrestamoDto dto);
-
-    /**
-     *
-     * @param dto
-     * @return
-     */
-    boolean areClientOverlapping(PrestamoDto dto);
-
-    Page<Prestamo> findPage(PrestamoSearchDto dto);
-
-    List<Prestamo> find(Long idClient, Long idGame, LocalDate initDate);
 }
