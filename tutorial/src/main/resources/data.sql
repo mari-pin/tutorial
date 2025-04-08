@@ -34,6 +34,6 @@ INSERT INTO prestamo(game_id, client_id, initdate, enddate) VALUES (2, 2, '2025-
 INSERT INTO prestamo(game_id, client_id, initdate, enddate) VALUES (2, 1, '2025-04-08', '2025-04-12');
 INSERT INTO prestamo(game_id, client_id, initdate, enddate) VALUES (3, 3, '2025-04-08', '2025-04-09');
 INSERT INTO prestamo(game_id, client_id, initdate, enddate) VALUES (2, 1, '2025-04-09', '2025-04-15');
-INSERT INTO prestamo(game_id, client_id, initdate, enddate) VALUES (4, 3, '2025-04-10', '2025-04-16');
+INSERT INTO prestamo(game_id, client_id, initdate, enddate) VALUES (4, 2, '2025-04-10', '2025-04-16');
 INSERT INTO prestamo(game_id, client_id, initdate, enddate) VALUES (3, 1, '2025-04-12', '2025-04-16');
 INSERT INTO prestamo(game_id, client_id, initdate, enddate) VALUES (5, 2, '2025-04-08', '2025-04-19');
