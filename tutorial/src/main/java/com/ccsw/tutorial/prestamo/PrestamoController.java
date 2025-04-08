@@ -51,44 +51,31 @@ public class PrestamoController {
      */
     @Operation(summary = "Find Page", description = "Method that return a page of Prestamos")
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public Page<PrestamoDto> findPage(@RequestBody PrestamoSearchDto dto) {
+    public Page<PrestamoDto> findPage(@RequestBody PrestamoSearchDto data) {
 
-        Page<Prestamo> page = this.prestamoService.findPage(dto);
+        Page<Prestamo> page = this.prestamoService.findPage(data);
+        // Verifica que la página no es nula
+        if (page == null || page.getContent().isEmpty()) {
+            return Page.empty();
+        }
 
         return new PageImpl<>(page.getContent().stream().map(e -> mapper.map(e, PrestamoDto.class)).collect(Collectors.toList()), page.getPageable(), page.getTotalElements());
     }
 
     /**
-     * Método para recuperar una lista de {@link Prestamo}
-     *
-     * @param idGame PK del juego
-     * @param idClient PK del cliente
-     * @param date
-     * @return
-     */
-
-    /** @Operation(summary = "Find", description = "Method that return a list of Prestamos")
-     @RequestMapping(path = "", method = RequestMethod.GET)
-     public List<PrestamoDto> find(@RequestParam(value = "gameId", required = false) Long idGame, @RequestParam(value = "clientId", required = false) Long idClient, @RequestParam(value = "date", required = false) LocalDate date) {
-     List<Prestamo> prestamos = prestamoService.findAll();
-
-     return prestamos.stream().map(e -> mapper.map(e, PrestamoDto.class)).collect(Collectors.toList());
-     }
-     */
-    /**
      * Método para crean un {@link Prestamo}
      *
      * @param id PK de la entidad
-     * @param dto datos de la entidad
+     * @param data datos de la entidad
      */
     @Operation(summary = "Save", description = "Method that saves a Prestamo")
     @RequestMapping(path = { "", "/{id}" }, method = RequestMethod.PUT)
-    public void save(@PathVariable(name = "id", required = false) Long id, @RequestBody PrestamoDto dto) {
-        prestamoService.save(id, dto);
+    public void save(@PathVariable(name = "id", required = false) Long id, @RequestBody PrestamoDto data) {
+        prestamoService.save(id, data);
     }
 
     /**
-     * Método para eliminar un {@link Prestamo
+     * Método para eliminar un {@link Prestamo}
      *
      * @param id PK de la entidad
      */
