@@ -19,20 +19,6 @@ public interface PrestamoService {
     List<Prestamo> find(Long idClient, Long idGame, LocalDate initDate);
 
     /**
-     * Método para recuperar un listado paginado de {@link Prestamo}
-     *
-     * @param dto dto de búsqueda
-     * @return {@link Page} de {@link Prestamo}
-     */
-    /*Page<Prestamo> findPage(PrestamoSearchDto dto);*/
-
-    /**
-     * Recupera la lista de prestamos
-     * @return {@link List} de {@link Prestamo}
-     */
-    // List<Prestamo> findAll();
-
-    /**
      * Guarda un prestamo
      *
      * @param id PK de la entidad
@@ -46,7 +32,6 @@ public interface PrestamoService {
      * @param dto dto de búsqueda
      * @return {@link Page} de {@link Prestamo}
      */
-    //  Page<Prestamo> findPage(Long gameId, Long clientId, LocalDate date, PrestamoSearchDto dto);
 
     Page<Prestamo> findPage(Long gameId, Long clientId, LocalDate date, PrestamoSearchDto dto);
 

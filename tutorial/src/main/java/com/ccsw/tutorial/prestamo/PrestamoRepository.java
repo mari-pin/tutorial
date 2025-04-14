@@ -17,7 +17,7 @@ public interface PrestamoRepository extends CrudRepository<Prestamo, Long>, JpaS
      * @param pageable pageable
      * @return {@link Page} de {@link Prestamo}
      */
-    Page<Prestamo> findAllPage(Pageable pageable, Specification<Prestamo> spec);
+    Page<Prestamo> findAll(Specification<Prestamo> spec, Pageable pageable);
 
     @Override
     @EntityGraph(attributePaths = { "game", "client" })

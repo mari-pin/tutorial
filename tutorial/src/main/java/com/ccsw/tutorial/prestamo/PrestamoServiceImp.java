@@ -59,7 +59,7 @@ public class PrestamoServiceImp implements PrestamoService {
 
         Specification<Prestamo> spec = Specification.where(clientSpec).and(gameSpec).and(fechaInicioSpec).and(fechaFinSpec);
 
-        return this.prestamoRepository.findAllPage(dto.getPageable().getPageable(), spec);
+        return this.prestamoRepository.findAll(spec, dto.getPageable().getPageable());
 
     }
 
@@ -68,14 +68,6 @@ public class PrestamoServiceImp implements PrestamoService {
     //        return this.prestamoRepository.findAll(dto.getPageable().getPageable());
     //    }
 
-    /**
-     *
-     * @return
-     */
-    //    @Override
-    //    public List<Prestamo> findAll() {
-    //        return List.of();
-    //    }
     @Override
     public void save(Long id, PrestamoDto data) {
         Prestamo prestamo;
