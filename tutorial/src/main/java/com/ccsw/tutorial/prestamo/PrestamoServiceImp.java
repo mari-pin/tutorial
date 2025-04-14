@@ -29,6 +29,7 @@ public class PrestamoServiceImp implements PrestamoService {
 
     @Autowired
     ClientService clientService;
+    private GameDto data;
 
     @Override
     public List<Prestamo> find(Long idClient, Long idGame, LocalDate fechaInicio) {
@@ -51,23 +52,30 @@ public class PrestamoServiceImp implements PrestamoService {
      */
     @Override
     public Page<Prestamo> findPage(Long gameId, Long clientId, LocalDate date, PrestamoSearchDto dto) {
-        return null;
+        PrestamoSpecification clientSpec = new PrestamoSpecification(new SearchCriteria("client.id", ":", clientId));
+        PrestamoSpecification gameSpec = new PrestamoSpecification(new SearchCriteria("game.id", ":", gameId));
+        PrestamoSpecification fechaInicioSpec = new PrestamoSpecification(new SearchCriteria("fechainicio", "<=", date));
+        PrestamoSpecification fechaFinSpec = new PrestamoSpecification(new SearchCriteria("fechafin", ">=", date));
+
+        Specification<Prestamo> spec = Specification.where(clientSpec).and(gameSpec).and(fechaInicioSpec).and(fechaFinSpec);
+
+        return this.prestamoRepository.findAllPage(dto.getPageable().getPageable(), spec);
+
     }
 
-    @Override
-    public Page<Prestamo> findPage(PrestamoSearchDto dto) {
-        return this.prestamoRepository.findAll(dto.getPageable().getPageable());
-    }
+    //    @Override
+    //    public Page<Prestamo> findPage(PrestamoSearchDto dto) {
+    //        return this.prestamoRepository.findAll(dto.getPageable().getPageable());
+    //    }
 
     /**
      *
      * @return
      */
-    @Override
-    public List<Prestamo> findAll() {
-        return List.of();
-    }
-
+    //    @Override
+    //    public List<Prestamo> findAll() {
+    //        return List.of();
+    //    }
     @Override
     public void save(Long id, PrestamoDto data) {
         Prestamo prestamo;
@@ -119,7 +127,7 @@ public class PrestamoServiceImp implements PrestamoService {
         this.prestamoRepository.deleteById(id);
     }
 
-    public boolean findByGame(GameDto game, LocalDate fechaInicio, LocalDate fechaFin, PrestamoDto dto) {
+    public boolean findByGame(GameDto game, LocalDate fechaInicio, LocalDate endDate, PrestamoDto dto) {
         List<Prestamo> prestamosExistentes = find(null, game.getId(), null);
         if (!prestamosExistentes.isEmpty()) {
             if (!(dto.getInitDate().isBefore(fechaInicio) || fechaInicio.isAfter(dto.getEndDate()))) {

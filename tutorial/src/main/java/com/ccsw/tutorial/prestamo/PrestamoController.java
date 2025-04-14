@@ -34,26 +34,27 @@ public class PrestamoController {
      * @param idGame PK de la categoría
      * @return {@link List} de {@link PrestamoDto}
      */
-    @Operation(summary = "Find", description = "Method that return a filtered list of Prestamos")
-    @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<PrestamoDto> find(@RequestParam(value = "idClient", required = false) Long idClient, @RequestParam(value = "idGame", required = false) Long idGame, @RequestParam(value = "initdate", required = false) LocalDate initDate) {
-
-        List<Prestamo> prestamos = prestamoService.find(idClient, idGame, initDate);
-
-        return prestamos.stream().map(e -> mapper.map(e, PrestamoDto.class)).collect(Collectors.toList());
-    }
+    //    @Operation(summary = "Find", description = "Method that return a filtered list of Prestamos")
+    //    @RequestMapping(path = "", method = RequestMethod.GET)
+    //    public List<PrestamoDto> find(@RequestParam(value = "idClient", required = false) Long idClient, @RequestParam(value = "idGame", required = false) Long idGame, @RequestParam(value = "initdate", required = false) LocalDate initDate) {
+    //
+    //        List<Prestamo> prestamos = prestamoService.find(idClient, idGame, initDate);
+    //
+    //        return prestamos.stream().map(e -> mapper.map(e, PrestamoDto.class)).collect(Collectors.toList());
+    //    }
 
     /**
      * Método para recuperar un listado paginado de {@link Prestamo}
      *
-     * @param data dto de búsqueda
+     * @param  dto de búsqueda
      * @return {@link Page} de {@link PrestamoDto}
      */
     @Operation(summary = "Find Page", description = "Method that return a page of Prestamos")
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public Page<PrestamoDto> findPage(@RequestBody PrestamoSearchDto data) {
+    public Page<PrestamoDto> findPage(@RequestBody PrestamoSearchDto dto, @RequestParam(value = "idClient", required = false) Long idClient, @RequestParam(value = "idGame", required = false) Long idGame,
+            @RequestParam(value = "initdate", required = false) LocalDate initDat) {
 
-        Page<Prestamo> page = this.prestamoService.findPage(data);
+        Page<Prestamo> page = this.prestamoService.findPage(idGame, idClient, initDat, dto);
         // Verifica que la página no es nula
         if (page == null || page.getContent().isEmpty()) {
             return Page.empty();

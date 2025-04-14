@@ -24,13 +24,13 @@ public interface PrestamoService {
      * @param dto dto de búsqueda
      * @return {@link Page} de {@link Prestamo}
      */
-    Page<Prestamo> findPage(PrestamoSearchDto dto);
+    /*Page<Prestamo> findPage(PrestamoSearchDto dto);*/
 
     /**
      * Recupera la lista de prestamos
      * @return {@link List} de {@link Prestamo}
      */
-    List<Prestamo> findAll();
+    // List<Prestamo> findAll();
 
     /**
      * Guarda un prestamo

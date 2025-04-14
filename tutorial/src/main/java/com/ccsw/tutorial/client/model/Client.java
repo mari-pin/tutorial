@@ -13,6 +13,10 @@ public class Client {
     @Column(name = "name", nullable = false)
     private String name;
 
+    // Relación uno a muchos con Client
+    //@OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true) // 'category' es el campo en Client que mapea esta relación
+    //private List<Prestamo> prestamos;
+
     /**
      * @return id
      */
@@ -40,4 +44,14 @@ public class Client {
     public void setName(String name) {
         this.name = name;
     }
+    /**
+     public List<Prestamo> getPrestamos() {
+     List<Prestamo> prestamos = List.of();
+     return prestamos;
+     }
+
+     public void setPrestamos(List<Prestamo> prestamos) {
+     this.prestamos = prestamos;
+     }
+     */
 }

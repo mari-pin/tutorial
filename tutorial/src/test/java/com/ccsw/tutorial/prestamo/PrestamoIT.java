@@ -399,7 +399,7 @@ public class PrestamoIT {
         params.put((DATE_PARAM), null);
 
         PrestamoSearchDto searchDto = new PrestamoSearchDto();
-        searchDto.setPageable(new PageableRequest(0, (int) NEW_PRESTAMO_SIZE));
+        searchDto.setPageable(new PageableRequest(1, (int) NEW_PRESTAMO_SIZE));
 
         ResponseEntity<ResponsePage<PrestamoDto>> response = restTemplate.exchange(getUrlWithParams(), HttpMethod.POST, new HttpEntity<>(searchDto), responseTypePage, params);
 

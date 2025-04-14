@@ -78,7 +78,7 @@ public class ClientTest {
         clientDto.setName(EXIST_CLIENT_NAME);
 
         Client client = mock(Client.class);
-        when(clientRepository.existsByName(EXIST_CLIENT_NAME)).thenReturn(true);
+        when(clientRepository.findByName(EXIST_CLIENT_NAME)).thenReturn(client);
 
         Exception exception;
         exception = Assertions.<Exception>assertThrows(Exception.class, () -> {

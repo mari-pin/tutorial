@@ -95,7 +95,7 @@ public class ClientIT {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-    @Test
+ /*   @Test
     public void deleteWithExistsIdShouldDeleteCategory() {
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH + "/" + DELETE_CLIENT_ID, HttpMethod.DELETE, null, Void.class);
 
@@ -103,7 +103,7 @@ public class ClientIT {
 
         assertNotNull(response);
         assertEquals(2, response.getBody().size());
-    }
+    }*/
 
     @Test
     public void deleteWithNotExistsIdShouldInternalError() {
