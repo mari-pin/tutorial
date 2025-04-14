@@ -35,7 +35,7 @@ public class PrestamoServiceImp implements PrestamoService {
     public List<Prestamo> find(Long idClient, Long idGame, LocalDate fechaInicio) {
         PrestamoSpecification clientSpec = new PrestamoSpecification(new SearchCriteria("client.id", ":", idClient));
         PrestamoSpecification gameSpec = new PrestamoSpecification(new SearchCriteria("game.id", ":", idGame));
-        PrestamoSpecification fechaSpec = new PrestamoSpecification(new SearchCriteria("fechainicio", ">", fechaInicio));
+        PrestamoSpecification fechaSpec = new PrestamoSpecification(new SearchCriteria("initDate", ">", fechaInicio));
 
         Specification<Prestamo> spec = Specification.where(clientSpec).and(gameSpec).and(fechaSpec);
 
@@ -54,8 +54,8 @@ public class PrestamoServiceImp implements PrestamoService {
     public Page<Prestamo> findPage(Long gameId, Long clientId, LocalDate date, PrestamoSearchDto dto) {
         PrestamoSpecification clientSpec = new PrestamoSpecification(new SearchCriteria("client.id", ":", clientId));
         PrestamoSpecification gameSpec = new PrestamoSpecification(new SearchCriteria("game.id", ":", gameId));
-        PrestamoSpecification fechaInicioSpec = new PrestamoSpecification(new SearchCriteria("fechainicio", "<=", date));
-        PrestamoSpecification fechaFinSpec = new PrestamoSpecification(new SearchCriteria("fechafin", ">=", date));
+        PrestamoSpecification fechaInicioSpec = new PrestamoSpecification(new SearchCriteria("initDate", "<=", date));
+        PrestamoSpecification fechaFinSpec = new PrestamoSpecification(new SearchCriteria("endDate", ">=", date));
 
         Specification<Prestamo> spec = Specification.where(clientSpec).and(gameSpec).and(fechaInicioSpec).and(fechaFinSpec);
 

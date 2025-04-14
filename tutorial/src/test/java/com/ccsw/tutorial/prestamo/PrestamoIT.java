@@ -439,6 +439,7 @@ public class PrestamoIT {
         ResponseEntity<List<PrestamoDto>> response = restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.GET, null, responseType);
 
         assertNotNull(response);
+        System.out.printf(String.valueOf(response.getBody()), new Object[] {});
         assertEquals(TOTAL_PRESTAMOS, response.getBody().size());
     }
 }

@@ -17,19 +17,21 @@ public class PrestamoSpecification implements Specification<Prestamo> {
 
     @Override
     public Predicate toPredicate(Root<Prestamo> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+        Path<String> path = getPath(root);
+
         if (criteria.getOperation().equalsIgnoreCase(":") && criteria.getValue() != null) {
-            Path<String> path = getPath(root);
+
             if (path.getJavaType() == String.class) {
                 return builder.like(path, "%" + criteria.getValue() + "%");
             } else {
                 return builder.equal(path, criteria.getValue());
             }
-        } else if (criteria.getOperation().equalsIgnoreCase("lessThanOrEqualTo") && criteria.getValue() != null) {
+        } else if (criteria.getOperation().equalsIgnoreCase("<=") && criteria.getValue() != null) {
             LocalDate date = (LocalDate) criteria.getValue();
-            return builder.lessThanOrEqualTo(root.get("initDate"), date);
-        } else if (criteria.getOperation().equalsIgnoreCase("greaterThanOrEqualTo") && criteria.getValue() != null) {
+            return builder.lessThanOrEqualTo(path.as(LocalDate.class), date);
+        } else if (criteria.getOperation().equalsIgnoreCase(">=") && criteria.getValue() != null) {
             LocalDate date = (LocalDate) criteria.getValue();
-            return builder.greaterThanOrEqualTo(root.get("endDate"), date);
+            return builder.greaterThanOrEqualTo(path.as(LocalDate.class), date);
         }
 
         return null;
